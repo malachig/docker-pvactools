@@ -62,4 +62,12 @@ RUN pip install tensorflow==2.2.2
 RUN pip install pvactools==3.0.0
 RUN mhcflurry-downloads fetch
 
+#pVACsplice for dev/testing prior to creation of a pip package
+RUN pip install pyfaidx
+RUN git clone https://github.com/malachig/pVACtools.git
+RUN cd pVACtools && git checkout staging
+RUN cp pVACtools/tmp/pvacsplice /usr/local/bin
+RUN chmod +x /usr/local/bin/pvacsplice
+RUN cp -f -R pVACtools/pvactools/* /usr/local/lib/python3.7/site-packages/pvactools/
+
 CMD ["/bin/bash"]
